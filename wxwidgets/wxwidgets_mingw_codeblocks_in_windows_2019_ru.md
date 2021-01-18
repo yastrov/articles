@@ -1,7 +1,7 @@
 TITLE: Установка wxWidgets-3.1.3 в ОС Windows и подключение к IDE Code::Blocks
 AUTHOR: Yuriy Astrov
 TAGS: wxWidgets;Windows;IDE Code::Blocks
-DATE: 17.11.2019
+DATE: 02.07.2020
 
 # Установка wxWidgets-3.1.3 в ОС Windows и подключение к IDE Code::Blocks  
 
@@ -67,7 +67,7 @@ WxSmith tutorials [http://wiki.codeblocks.org/index.php/WxSmith_tutorials](http:
 
 ## Создание первого проекта wxWidgets
 
-Выбрал в меню `"Project" -> "New"`, и в открытом окне выбрать `wxWidgets project`.  
+Выбрал в меню `"Project" -> "New"`, и в открытом окне выбрать проект `wxWidgets project`.
 В "Мастере создания проекта":  
 Выбрал `wxWidgets-3.1.x`  
 Выбрал название проекта и его размещение  
@@ -76,12 +76,11 @@ WxSmith tutorials [http://wiki.codeblocks.org/index.php/WxSmith_tutorials](http:
 
 Примечание: Если выбрать wxSmith, то можно будет редактировать GUI с помощью встроенного плагина Code::Blocks. Если выбрать wxFormBuilder, то его потребуется установить.
 
-Затем будет предложено выбрать размещение wxWidgets. Я указал: `C:\ProgramFiles\wxWidgets-3.1.3`.  
+Затем будет предложено выбрать размещение wxWidgets. Можно указать переменную `$(#wx)`, а можно директорию (я сделал так): `C:\ProgramFiles\wxWidgets-3.1.3`.   
 
-Если это первый проект wxWidgets, будет предложено установить глобавльные переменные.  
-Я указал только "base": `C:\ProgramFiles\wxWidgets-3.1.3`  
-Указание "include", "lib" могут потребоваться, если Вы скачивали wxWidgets отдельными архивами, а не пакетом установки.  
-Позднее глобальные переменные wx можно отредактирвать в пункте меню `"Settings" -> "Global Variables"`.  
+Если это первый проект wxWidgets, будет предложено установить глобавльную переменную `$(#wx)`.  
+Я указал "base": `C:\ProgramFiles\wxWidgets-3.1.3`  и соответственные "include" и "lib".  
+Позднее глобальную переменную wx можно отредактирвать в пункте меню `"Settings" -> "Global Variables"`.  
 
 На следующем шаге нужно убедиться, что выбран компилятор для wxWidgets, в моем случае `mingw-i686-8.1.0-release-win32-sjlj`.  
 
@@ -103,23 +102,35 @@ WxSmith tutorials [http://wiki.codeblocks.org/index.php/WxSmith_tutorials](http:
 По аналогии с тем, как делал раньше, включил стандарт С++11, необходимый для wxWidgets-3.1.3.   
 Во вкладке `"Search Directories" -> "Compiler"` добавил:  
 `C:\ProgramFiles\wxWidgets-3.1.3\include`  
+или `$(#wx)\include`  
+Во вкладке `"Search Directories" -> "ResourceCompiler"`:  
+`C:\ProgramFiles\wxWidgets-3.1.3\include`  
 
 Теперь выбрал `"Debug"`:  
 Во вкладке `"Search Directories" -> "Compiler"` добавил:  
-`C:\ProgramFiles\wxWidgets-3.1.3\lib\mswud`  
+`C:\ProgramFiles\wxWidgets-3.1.3\lib\gcc810_dll\mswud`   
+или `$(#wx)/lib/gcc810_dll/mswud`  
 Поскольку пользуюсь Unicode версией и Debug библиотеками.  
 Во вкладке `"Search Directories" -> "Linker"` добавил:  
+`C:\ProgramFiles\wxWidgets-3.1.3\lib\gcc810_dll`   
+или `$(#wx)/lib/gcc810_dll`  
+Во вкладке `"Search Directories" -> "ResourceCompiler"`:  
 `C:\ProgramFiles\wxWidgets-3.1.3\lib\gcc810_dll\mswud`  
+или `$(#wx)/lib/gcc810_dll/mswud`  
+
 
 В `"Release"`:  
 Здесь почти то же самое, но без буквы "d" в названии директории:  
-Во вкладке `"Search Directories" -> "Compiler"` добавил:  
-`C:\ProgramFiles\wxWidgets-3.1.3\lib\mswu`  
+`C:\ProgramFiles\wxWidgets-3.1.3\lib\gcc810_dll\mswu`   
 Поскольку пользуюсь Unicode версией и Debug библиотеками.  
 Во вкладке `"Search Directories" -> "Linker"` добавил:  
+`C:\ProgramFiles\wxWidgets-3.1.3\lib\gcc810_dll`   
+или `$(#wx)/lib/gcc810_dll`  
+Во вкладке `"Search Directories" -> "ResourceCompiler"`:  
 `C:\ProgramFiles\wxWidgets-3.1.3\lib\gcc810_dll\mswu`  
+или `$(#wx)/lib/gcc810_dll/mswu`  
 
-Теперь, если все сделано правильно, программа будет собрана.  
+Теперь, если все сделано правильно, программа будет собрана. 
 
 ## Если при сборке появилась ошибка "wx/setup.h: No such file or directory"  
 
